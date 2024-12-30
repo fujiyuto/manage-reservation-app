@@ -1,0 +1,247 @@
+
+{
+    "openapi": "3.0.0",
+    "info":{
+    "title": "予約管理システムAPI",
+    "version": "1.0.0"
+    },
+    "paths": {
+        "/reservation/{userId}": {
+            "get": {
+                "operationId": "getUserReservationData",
+                "summary": "userIdで指定したIDのユーザーの予約情報のデータを取得するAPI",
+                "tags": [ "reservation" ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "required": true,
+                        "description": "ユーザーを一意に識別するID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items":{
+                                        "$ref": "#/components/schemas/GetUserReservationResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reservation/{restaurantId}": {
+            "get": {
+                "operationId": "getRestaurantReservationData",
+                "summary": "restaurantIdで指定したIDの店の予約情報のデータを取得するAPI",
+                "tags": [ "reservation" ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "restaurantId",
+                        "required": true,
+                        "description": "店を一意に識別するID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GetRestaurantReservationResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reservation": {
+            "post": {
+                "operationId": "createReservation",
+                "summary": "予約データを登録する",
+                "tags": [ "reservation" ],
+                "requestBody": {
+                    "description": "予約データを作成するためのリクエストデータ",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateReservationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reservation/{reservationId}": {
+            "patch": {
+                "operationId": "updateReservation",
+                "summary": "予約内容を変更する",
+                "tags": [ "reservation" ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "reservationId",
+                        "required": true,
+                        "description": "予約データを一意に識別する番号",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "更新内容リクエスト",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateReservationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {}
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "GetUserReservationResponse": {
+                "type": "object",
+                "properties": {
+                    "reservationId": {
+                        "type": "integer",
+                        "description": "予約データを一意に識別する番号"
+                    },
+                    "restaurantId": {
+                        "type": "integer",
+                        "description": "店データを一意に識別する番号"
+                    },
+                    "reserveDatetime": {
+                        "type": "string",
+                        "description": "予約日時"
+                    },
+                    "numberOfPeople": {
+                        "type": "integer",
+                        "description": "予約人数"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "予約状態"
+                    }
+                }
+            },
+            "GetRestaurantReservationResponse": {
+                "type": "object",
+                "properties": {
+                    "reservationId": {
+                        "type": "integer",
+                        "description": "予約データを一意に識別する番号"
+                    },
+                    "userId": {
+                        "type": "integer",
+                        "description": "ユーザーを一意に識別する番号"
+                    },
+                    "reserveDatetime": {
+                        "type": "string",
+                        "description": "予約日時"
+                    },
+                    "numberOfPeople": {
+                        "type": "integer",
+                        "description": "予約人数"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "予約状態"
+                    }
+                }
+            },
+            "CreateReservationRequest": {
+                "type": "object",
+                "required": [
+                    "userId",
+                    "restaurantId",
+                    "reserveDatetime",
+                    "numberOfPeople",
+                    "notes"
+                ],
+                "properties": {
+                    "userId": {
+                        "type": "integer",
+                        "description": "ユーザーを一意に識別するID"
+                    },
+                    "restaurantId": {
+                        "type": "integer",
+                        "description": "店を一意に識別するID"
+                    },
+                    "reserveDatetime": {
+                        "type": "string",
+                        "description": "予約日時"
+                    },
+                    "numberOfPeople": {
+                        "type": "integer",
+                        "description": "予約人数"
+                    },
+                    "notes": {
+                        "type": "string",
+                        "description": "特記事項"
+                    }
+                }
+            },
+            "UpdateReservationRequest": {
+                "type": "object",
+                "required": [
+                    "sendUser"
+                ],
+                "properties": {
+                    "sendUser": {
+                        "type": "string",
+                        "description": "リクエスト送信者を識別する値(1: ユーザー、2: 店舗)"
+                    },
+                    "reserveDatetime": {
+                        "type": "string",
+                        "description": "予約日時"
+                    },
+                    "numberOfPeople": {
+                        "type": "integer",
+                        "description": "予約人数"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "予約状況"
+                    },
+                    "notes": {
+                        "type": "string",
+                        "description": "特記事項"
+                    }
+                }
+            }
+        }
+
+    }
+}

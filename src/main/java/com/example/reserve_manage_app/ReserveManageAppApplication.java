@@ -1,0 +1,13 @@
+package com.example.reserve_manage_app;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ReserveManageAppApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ReserveManageAppApplication.class, args);
+	}
+
+}
