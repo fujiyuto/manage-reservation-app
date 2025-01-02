@@ -14,9 +14,12 @@ RUN gradle bootJar --no-daemon
 FROM openjdk:17-jdk-slim
 
 # 作業ディレクトリ
-WORKDIR /app
+WORKDIR /var/www/html
 
 # ビルド済み
-COPY --from=build /app/build/libs/*.jar app.jar
+COPY --from=build /app/build/libs/*.jar /var/www/html/app.jar
 
-ENTRYPOINT [ "java", "-jar", "/app/app.jar" ]
+ENTRYPOINT [ "java", "-jar", "/var/www/html/app.jar" ]
+
+# ポートを公開
+EXPOSE 8080
