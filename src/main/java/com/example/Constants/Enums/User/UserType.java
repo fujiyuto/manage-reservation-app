@@ -1,4 +1,4 @@
-package com.example.Constants.Enums.User;
+package com.example.constants.enums.user;
 
 public enum UserType {
     USER(1, "ユーザー"),

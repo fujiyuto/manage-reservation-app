@@ -1,4 +1,4 @@
-package com.example.Constants.Enums.Reservation;
+package com.example.constants.enums.reservation;
 
 
 public enum Status {
