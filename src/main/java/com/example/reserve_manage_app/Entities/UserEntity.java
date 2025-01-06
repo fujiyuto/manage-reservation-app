@@ -3,8 +3,8 @@ package com.example.reserve_manage_app.Entities;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.example.Constants.Enums.User.Gender;
-import com.example.Constants.Enums.User.UserType;
+import com.example.constants.enums.user.Gender;
+import com.example.constants.enums.user.UserType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,10 +13,12 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "users")
 public class UserEntity {
     /**
      * ユーザーID
