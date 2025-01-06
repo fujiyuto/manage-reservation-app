@@ -1,4 +1,4 @@
-package com.example.reserve_manage_app.DTO.Requests;
+package com.example.reserve_manage_app.dto.requests;
 
 import java.time.LocalDateTime;
 

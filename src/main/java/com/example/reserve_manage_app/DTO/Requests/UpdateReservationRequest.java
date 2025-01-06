@@ -1,9 +1,6 @@
-package com.example.reserve_manage_app.DTO.Requests;
+package com.example.reserve_manage_app.dto.requests;
 
 import java.time.LocalDateTime;
-
-import com.example.Constants.Enums.Reservation.Status;
-import com.example.reserve_manage_app.Validations.Annotations.ValidReservationStatus;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Max;
@@ -25,12 +22,6 @@ public class UpdateReservationRequest {
     @Min(value = 1, message = "予約人数は1名以上からです。")
     @Max(value = 8, message = "予約人数は8名までです。")
     private int numberOfPeople;
-
-    /**
-     * 予約状況
-     */
-    @ValidReservationStatus
-    private Status status;
 
     /**
      * 特記事項
