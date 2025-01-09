@@ -6,7 +6,7 @@ import lombok.Data;
 public class ApiResponse {
     private String message = "";
 
-    ApiResponse(String message) {
+    public ApiResponse(String message) {
         this.message = message;
     }
 
