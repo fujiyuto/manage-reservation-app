@@ -40,12 +40,11 @@ public interface ReservationMapper {
      * @param notes
      */
     @Insert("INSERT INTO reservations(user_id, restaurant_id, reserve_date_time, num_of_people, status, notes) VALUES(#{userId}, #{restaurantId}, #{reserveDateTime}, #{numberOfPeople}, #{status}, #{notes})")
-    void createReservation(
+    int createReservation(
         @Param("user_id") Long userId,
         @Param("restaurant_id") Long restaurantId,
         @Param("reserve_date_time") LocalDateTime reserveDateTime,
         @Param("num_of_people") int numberOfPeople,
-        @Param("status") Status status,
         @Param("notes") String notes
     );
 
