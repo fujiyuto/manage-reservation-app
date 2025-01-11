@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 public class DataInsertException extends Exception {
 
-    // レコード作成エラー
-    DataInsertException(String message) {
+    public DataInsertException(String message) {
         super(message);
     } 
 }
