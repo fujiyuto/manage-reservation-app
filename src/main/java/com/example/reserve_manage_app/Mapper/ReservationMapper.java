@@ -56,7 +56,7 @@ public interface ReservationMapper {
      * @param notes
      */
     @Update("UPDATE reservations SET reserve_date_time = #{reserveDateTime}, num_of_people = #{numberOfPeople}, notes = #{notes}")
-    void updateReservation(
+    int updateReservation(
         @Param("reservation_id") Long reservationId,
         @Param("reserve_date_time") LocalDateTime reserveDateTime,
         @Param("num_of_people") int numberOfPeople,
@@ -68,5 +68,5 @@ public interface ReservationMapper {
      * @param status
      */
     @Update("UPDATE reservations SET status = #{status}")
-    void updateReservationStatus(@Param("status") Status status);
+    int updateReservationStatus(@Param("status") Status status);
 }
