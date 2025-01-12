@@ -31,6 +31,12 @@ public interface ReservationMapper {
     List<ReservationEntity> getUserReservationData(@Param("userId") Long userId);
 
     /**
+     * 予約データIDを使用し、予約データを取得する
+     */
+    @Select("SELECT * FROM reservations WHERE reservation_id = #{reservationId}")
+    ReservationEntity getReservationData(@Param("reservationId") Long reservationId);
+
+    /**
      * 予約データを作成する
      * @param userId
      * @param restaurantId
@@ -55,9 +61,9 @@ public interface ReservationMapper {
      * @param numberOfPeople
      * @param notes
      */
-    @Update("UPDATE reservations SET reserve_date_time = #{reserveDateTime}, num_of_people = #{numberOfPeople}, notes = #{notes}")
+    @Update("UPDATE reservations SET reserve_date_time = #{reserveDateTime}, num_of_people = #{numberOfPeople}, notes = #{notes} WHERE reservation_id = #{reservationId}")
     int updateReservation(
-        @Param("reservation_id") Long reservationId,
+        Long reservationId, 
         @Param("reserve_date_time") LocalDateTime reserveDateTime,
         @Param("num_of_people") int numberOfPeople,
         @Param("notes") String notes 
@@ -67,6 +73,9 @@ public interface ReservationMapper {
      * 予約データのステータスを更新する
      * @param status
      */
-    @Update("UPDATE reservations SET status = #{status}")
-    int updateReservationStatus(@Param("status") Status status);
+    @Update("UPDATE reservations SET status = #{status} WHERE reservation_id = #{reservationId}")
+    int updateReservationStatus(
+        @Param("reservation_id") Long reservationId, 
+        @Param("status") Status status
+    );
 }

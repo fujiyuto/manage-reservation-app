@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.reserve_manage_app.Entities.ReservationEntity;
 import com.example.reserve_manage_app.Services.ReservationService;
 import com.example.reserve_manage_app.dto.requests.CreateReservationRequest;
 import com.example.reserve_manage_app.dto.requests.UpdateReservationRequest;
@@ -23,7 +22,6 @@ import com.example.reserve_manage_app.dto.responses.ApiResponse;
 import com.example.reserve_manage_app.dto.responses.GetRestaurantReservationResponse;
 import com.example.reserve_manage_app.dto.responses.GetUserReservationResponse;
 import com.example.reserve_manage_app.dto.responses.UpdateReservationResponse;
-import com.example.reserve_manage_app.dto.responses.UpdateReservationStatusResponse;
 
 
 /**
@@ -103,10 +101,10 @@ public class ReservationController {
     }
     
     @PatchMapping("/reservations/{reservationId}")
-    public ResponseEntity<?> updateReservationData(@PathVariable Long restaurantId, @RequestBody UpdateReservationRequest request) {
+    public ResponseEntity<?> updateReservationData(@PathVariable Long reservationId, @RequestBody UpdateReservationRequest request) {
         try {
             // 予約データ更新処理
-            UpdateReservationResponse response = reservationService.updateReservation(request);
+            UpdateReservationResponse response = reservationService.updateReservation(reservationId, request);
 
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
@@ -117,10 +115,10 @@ public class ReservationController {
     }
 
     @PatchMapping("/reservations/{reservationId}/status")
-    public ResponseEntity<?> updateReservationStatus(@PathVariable Long restaurantId, @RequestBody UpdateReservationStatusRequest request) {
+    public ResponseEntity<?> updateReservationStatus(@PathVariable Long reservationId, @RequestBody UpdateReservationStatusRequest request) {
         try {
             // 予約状況更新処理
-            UpdateReservationStatusResponse response = reservationService.updateReservationStatus(request);
+            UpdateReservationResponse response = reservationService.updateReservationStatus(reservationId, request);
 
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
