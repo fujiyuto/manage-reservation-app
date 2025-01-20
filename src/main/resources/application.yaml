@@ -8,5 +8,6 @@ spring:
         driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
     flyway:
         enabled: true
-        baseline-version: 1
+        baseline-version: 0
         locations: "classpath:db/migration"
+        baseline-on-migrate: true
