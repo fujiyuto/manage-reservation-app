@@ -1,6 +1,7 @@
 package com.example.reserve_manage_app.Entities;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
@@ -43,10 +44,10 @@ public class ReservationEntity {
     private RestaurantEntity restaurant;
 
     /**
-     * 予約日時
+     * 予約日
      */
-    @Column(name = "reserve_date_time")
-    private LocalDateTime reserveDatetime;
+    @Column(name = "reserve_date")
+    private Date reserveDate;
 
     /**
      * 予約人数
@@ -78,4 +79,11 @@ public class ReservationEntity {
      */
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    /**
+     * 時間帯
+     */
+    @ManyToOne
+    @JoinColumn(name = "time_slot_id")
+    private TimeSlotEntity timeSlot;
 }

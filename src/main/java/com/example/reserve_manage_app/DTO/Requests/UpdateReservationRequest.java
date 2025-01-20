@@ -1,6 +1,6 @@
 package com.example.reserve_manage_app.dto.requests;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Max;
@@ -13,8 +13,8 @@ public class UpdateReservationRequest {
     /**
      * 予約日時
      */
-    @Future(message = "予約日時が正しくありません。")
-    private LocalDateTime reserveDatetime;
+    @Future(message = "予約日が正しくありません。")
+    private Date reserveDate;
 
     /**
      * 予約人数

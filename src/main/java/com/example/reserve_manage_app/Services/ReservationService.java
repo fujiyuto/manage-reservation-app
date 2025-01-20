@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.reserve_manage_app.Entities.ReservationEntity;
 import com.example.reserve_manage_app.Exceptions.DataInsertException;
 import com.example.reserve_manage_app.Exceptions.DataUpdateException;
-import com.example.reserve_manage_app.Mapper.ReservationMapper;
 import com.example.reserve_manage_app.dto.requests.CreateReservationRequest;
 import com.example.reserve_manage_app.dto.requests.UpdateReservationRequest;
 import com.example.reserve_manage_app.dto.requests.UpdateReservationStatusRequest;
@@ -18,6 +17,7 @@ import com.example.reserve_manage_app.dto.responses.ApiResponse;
 import com.example.reserve_manage_app.dto.responses.GetRestaurantReservationResponse;
 import com.example.reserve_manage_app.dto.responses.GetUserReservationResponse;
 import com.example.reserve_manage_app.dto.responses.UpdateReservationResponse;
+import com.example.reserve_manage_app.mapper.ReservationMapper;
 
 @Service
 public class ReservationService {
@@ -66,7 +66,7 @@ public class ReservationService {
         int numOfInsertRecord = reservationMapper.createReservation(
             request.getUserId(),
             request.getRestaurantId(),
-            request.getReserveDatetime(),
+            request.getReserveDate(),
             request.getNumberOfPeople(),
             request.getNotes()
         );
@@ -92,7 +92,7 @@ public class ReservationService {
         // 予約データ更新処理
         int numOfUpdateRecord = reservationMapper.updateReservation(
                                     reservationId,
-                                    request.getReserveDatetime(),
+                                    request.getReserveDate(),
                                     request.getNumberOfPeople(),
                                     request.getNotes()
                                 );

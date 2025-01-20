@@ -1,6 +1,6 @@
 package com.example.reserve_manage_app.dto.requests;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,10 +28,10 @@ public class CreateReservationRequest {
     /**
      * 予約日時
      */
-    @NotNull(message = "予約日時を指定してください。")
-    @Future(message = "予約日時が正しくありません。")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime reserveDatetime;
+    @NotNull(message = "予約日を指定してください。")
+    @Future(message = "予約日が正しくありません。")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date reserveDate;
 
     /**
      * 予約人数
