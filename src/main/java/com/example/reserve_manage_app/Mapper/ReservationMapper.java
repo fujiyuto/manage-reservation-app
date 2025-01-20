@@ -1,6 +1,6 @@
-package com.example.reserve_manage_app.Mapper;
+package com.example.reserve_manage_app.mapper;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
@@ -19,22 +19,22 @@ public interface ReservationMapper {
      * @param  Long restaurantId 店ID
      * @return List<ReservationEntity> 予約データの一覧
      */
-    @Select("SELECT * FROM reservations WHERE restaurant_id = #{restaurantId}")
-    List<ReservationEntity> getRestaurantReservationData(@Param("restaurantId") Long restaurantId);
+    @Select("SELECT * FROM reservations WHERE restaurant_id = #{restaurant_id}")
+    List<ReservationEntity> getRestaurantReservationData(@Param("restaurant_id") Long restaurantId);
 
     /**
      * ユーザーIDを使用し、予約データを取得する
      * @param  Long reservationId 店ID
      * @return List<ReservationEntity> 予約データの一覧
      */
-    @Select("SELECT * FROM reservations WHERE user_id = #{userId}")
-    List<ReservationEntity> getUserReservationData(@Param("userId") Long userId);
+    @Select("SELECT * FROM reservations WHERE user_id = #{user_id}")
+    List<ReservationEntity> getUserReservationData(@Param("user_id") Long userId);
 
     /**
      * 予約データIDを使用し、予約データを取得する
      */
-    @Select("SELECT * FROM reservations WHERE reservation_id = #{reservationId}")
-    ReservationEntity getReservationData(@Param("reservationId") Long reservationId);
+    @Select("SELECT * FROM reservations WHERE id = #{reservation_id}")
+    ReservationEntity getReservationData(@Param("reservation_id") Long reservationId);
 
     /**
      * 予約データを作成する
@@ -44,14 +44,16 @@ public interface ReservationMapper {
      * @param numberOfPeople
      * @param status
      * @param notes
+     * @param timeSlotId
      */
-    @Insert("INSERT INTO reservations(user_id, restaurant_id, reserve_date_time, num_of_people, status, notes) VALUES(#{userId}, #{restaurantId}, #{reserveDateTime}, #{numberOfPeople}, #{status}, #{notes})")
+    @Insert("INSERT INTO reservations(user_id, restaurant_id, reserve_date, num_of_people, notes, time_slot_id) VALUES(#{user_id}, #{restaurant_id}, #{reserve_date}, #{num_of_people}, #{notes} #{time_slot_id})")
     int createReservation(
-        @Param("user_id") Long userId,
+        @Param("user_id")       Long userId,
         @Param("restaurant_id") Long restaurantId,
-        @Param("reserve_date_time") LocalDateTime reserveDateTime,
+        @Param("reserve_date")  Date reserveDate,
         @Param("num_of_people") int numberOfPeople,
-        @Param("notes") String notes
+        @Param("notes")         String notes,
+        @Param("time_slot_id")  Long timeSlotId
     );
 
     /**
@@ -60,20 +62,22 @@ public interface ReservationMapper {
      * @param reserveDateTime
      * @param numberOfPeople
      * @param notes
+     * @param timeSlotId
      */
-    @Update("UPDATE reservations SET reserve_date_time = #{reserveDateTime}, num_of_people = #{numberOfPeople}, notes = #{notes} WHERE reservation_id = #{reservationId}")
+    @Update("UPDATE reservations SET reserve_date_time = #{reserve_date_time}, num_of_people = #{num_of_people}, notes = #{notes} WHERE id = #{reservation_id}")
     int updateReservation(
-        Long reservationId, 
-        @Param("reserve_date_time") LocalDateTime reserveDateTime,
-        @Param("num_of_people") int numberOfPeople,
-        @Param("notes") String notes 
+        @Param("reservation_id")    Long reservationId, 
+        @Param("reserve_date_time") Date reserveDateTime,
+        @Param("num_of_people")     int numberOfPeople,
+        @Param("notes")             String notes,
+        @Param("time_slot_id")      Long timeSlotId
     );
 
     /**
      * 予約データのステータスを更新する
      * @param status
      */
-    @Update("UPDATE reservations SET status = #{status} WHERE reservation_id = #{reservationId}")
+    @Update("UPDATE reservations SET status = #{status} WHERE id = #{reservation_id}")
     int updateReservationStatus(
         @Param("reservation_id") Long reservationId, 
         @Param("status") Status status
