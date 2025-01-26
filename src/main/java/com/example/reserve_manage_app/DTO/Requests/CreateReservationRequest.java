@@ -1,7 +1,6 @@
 package com.example.reserve_manage_app.dto.requests;
 
-import java.util.Date;
-
+import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.Future;
@@ -26,12 +25,18 @@ public class CreateReservationRequest {
     private Long restaurantId;
 
     /**
-     * 予約日時
+     * 予約日
      */
     @NotNull(message = "予約日を指定してください。")
     @Future(message = "予約日が正しくありません。")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date reserveDate;
+    private LocalDate reserveDate;
+
+    /**
+     * 時間帯
+     */
+    @NotNull(message = "時間帯が正しくありません。")
+    private Long timeSlotId;
 
     /**
      * 予約人数
@@ -45,4 +50,5 @@ public class CreateReservationRequest {
      */
     @Size(max = 500, message = "特記事項は500文字以内で入力してください。")
     private String notes;
+
 }

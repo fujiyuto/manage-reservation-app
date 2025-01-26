@@ -1,7 +1,7 @@
 package com.example.reserve_manage_app.Entities;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
