@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <!-- 店の予約データ一覧取得のエイリアス -->
+        <typeAlias 
+            type="com.example.reserve_manage_app.dto.query.RestaurantReservationListQueryDto" 
+            alias="RestaurantReservationListQuery"
+        />
+
+        <!-- ユーザーの予約データ一覧取得のエイリアス -->
+        <typeAlias 
+            type="com.example.reserve_manage_app.dto.query.UserReservationListQueryDto" 
+            alias="UserReservationListQuery"
+        />
+
+        <!-- 予約データ詳細取得のエイリアス -->
+        <typeAlias 
+            type="com.example.reserve_manage_app.dto.query.ReservationQueryDto" 
+            alias="ReservationQuery"
+        />
+
+        <!-- 予約データ作成のエイリアス -->
+        <typeAlias 
+            type="com.example.reserve_manage_app.dto.requests.CreateReservationRequest" 
+            alias="CreateReservationRequest"
+        />
+
+        <!-- 予約データ更新のエイリアス -->
+        <typeAlias 
+            type="com.example.reserve_manage_app.dto.requests.UpdateReservationRequest" 
+            alias="UpdateReservationRequest"
+        />
+
+        <!-- 予約状況更新のエイリアス -->
+        <typeAlias 
+            type="com.example.reserve_manage_app.dto.requests.UpdateReservationStatusRequest" 
+            alias="UpdateReservationStatusRequest"
+        />
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+        <transactionManager type="JDBC"/>
+        <dataSource type="POOLED">
+            <property name="driver" value="${driver}"/>
+            <property name="url" value="${url}"/>
+            <property name="username" value="${username}"/>
+            <property name="password" value="${password}"/>
+        </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/example/reserve_manage_app/mapper/ReservationMapper.xml"/>
+    </mappers>
+</configuration>
