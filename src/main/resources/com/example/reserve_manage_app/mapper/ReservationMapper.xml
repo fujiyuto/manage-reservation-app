@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.reserve_manage_app.mapper.ReservationMapper">
+
+    <!-- 店の予約データ一覧取得のresultMap -->
+    <resultMap id="selectRestaurantReservationList" type="RestaurantReservationListQuery">
+        <id property="reservationId" column="id"/>
+        <result property="reserveDate" column="reserve_date"/>
+        <result property="hour" column="hour"/>
+        <result property="minute" column="minute"/>
+        <result property="numberOfPeople" column="num_of_people"/>
+        <result property="status" column="status"/>
+        <result property="userName" column="user_name"/>
+    </resultMap>
+
+    <!-- ユーザーの予約データ一覧取得のresultMap -->
+    <resultMap id="selectUserReservationList" type="UserReservationListQuery">
+        <id property="reservationId" column="id"/>
+        <result property="reserveDate" column="reserve_date"/>
+        <result property="hour" column="hour"/>
+        <result property="minute" column="minute"/>
+        <result property="numberOfPeople" column="num_of_people"/>
+        <result property="status" column="status"/>
+        <result property="restaurantName" column="restaurant_name"/>
+    </resultMap>
+
+    <!-- 予約データの詳細取得のresultMap -->
+    <resultMap id="selectReservation" type="ReservationQuery">
+        <result property="userName" column="user_name"/>
+        <result property="restaurantName" column="restaurant_name"/>
+        <result property="reserveDate" column="reserve_date"/>
+        <result property="numberOfPeople" column="num_of_people"/>
+        <result property="status" column="status"/>
+        <result property="notes" column="notes"/>
+        <result property="hour" column="hour"/>
+        <result property="minute" column="minute"/>
+    </resultMap>
+    
+    <!-- 店の予約データ一覧を取得する -->
+    <!-- User・Reservation・TimeSlotテーブルを内部結合 -->
+    <select id="getRestaurantReservationData" parameterType="long" resultMap="selectRestaurantReservationList">
+        SELECT 
+            r.id, 
+            r.reserve_date, 
+            ts.hour, 
+            ts.minute, 
+            r.num_of_people, 
+            r.status, 
+            u.user_name
+        FROM 
+            reservations AS r
+        INNER JOIN 
+            time_slots AS ts
+        ON 
+            r.time_slots_id = ts.id
+        INNER JOIN 
+            users AS u
+        ON 
+            r.reserved_by = u.id
+        WHERE 
+            r.restaurant_id = #{restaurantId};
+    </select>
+
+    <!-- ユーザーの予約データ一覧を取得する -->
+    <!-- Restaurant・Reservation・TimeSlotテーブルを内部結合 -->
+    <select id="getUserReservationData" parameterType="long" resultMap="selectUserReservationList">
+        SELECT 
+            r.id as reservationId, 
+            r.reserve_date as reserveDate, 
+            ts.hour, 
+            ts.minute, 
+            r.num_of_people as numberOfPeople, 
+            r.status, 
+            res.restaurant_name as restaurantName
+        FROM 
+            reservations AS r
+        INNER JOIN 
+            time_slots AS ts
+        ON 
+            r.time_slots_id = ts.id
+        INNER JOIN 
+            restaurants as res
+        ON 
+            r.restaurant_id = res.id
+        WHERE 
+            r.reserved_by = #{userId};
+    </select>
+
+    <!-- 予約データIDを使用し、予約データを取得する -->
+    <select id="getReservationData" parameterType="long" resultMap="selectReservation">
+        SELECT 
+            u.user_name as userName, 
+            res.restaurant_name as restaurantName,
+            r.reserve_date as reserveDate, 
+            r.num_of_people as numberOfPeople, 
+            r.status, 
+            r.notes, 
+            ts.hour, 
+            ts.minute
+        FROM 
+            reservations AS r
+        INNER JOIN 
+            time_slots AS ts
+        ON 
+            r.time_slot_id = ts.id
+        INNER JOIN 
+            users AS u
+        ON 
+            r.reserved_by = u.id
+        INNER JOIN 
+            restaurants AS res
+        ON 
+            r.restaurant_id = res.id
+        WHERE 
+            r.id = #{reservationId}
+    </select>
+
+    <!-- 予約データを作成する -->
+    <insert id="createReservation" parameterType="CreateReservationRequest">
+        INSERT INTO reservations 
+        (
+            reserved_by,
+            restaurant_id,
+            reserve_date,
+            time_slot_id,
+            num_of_people,
+            notes
+        )
+        VALUES (
+            #{userId},
+            #{restaurantId},
+            #{reserveDate},
+            #{timeSlotId},
+            #{numberOfPeople},
+            #{notes}
+        )
+    </insert>
+
+    <!-- 予約データを更新する -->
+    <update id="updateReservation" parameterType="UpdateReservationRequest">
+        UPDATE reservations
+        SET
+            reserve_date = #{request.reserveDate},
+            time_slot_id = #{request.timeSlotId},
+            num_of_people = #{request.numberOfPeople},
+            notes = #{request.notes},
+            reserved_by = #{request.reservedBy}
+        WHERE
+            id = #{reservationId}
+    </update>
+
+    <!-- 予約状況を更新する -->
+    <update id="updateReservationStatus" parameterType="UpdateReservationStatusRequest">
+        UPDATE reservations
+        SET
+            status = #{request.status}
+        WHERE
+            id = #{reservationId}
+    </update>
+</mapper>
