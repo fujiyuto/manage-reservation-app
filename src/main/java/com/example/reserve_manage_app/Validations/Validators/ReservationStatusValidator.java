@@ -1,9 +1,9 @@
-package com.example.reserve_manage_app.Validations.Validators;
+package com.example.reserve_manage_app.validations.validators;
 
 import java.util.Arrays;
 
 import com.example.constants.enums.reservation.Status;
-import com.example.reserve_manage_app.Validations.Annotations.ValidReservationStatus;
+import com.example.reserve_manage_app.validations.annotations.ValidReservationStatus;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

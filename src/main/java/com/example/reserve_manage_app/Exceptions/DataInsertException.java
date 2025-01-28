@@ -1,7 +1,4 @@
-package com.example.reserve_manage_app.Exceptions;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+package com.example.reserve_manage_app.exceptions;
 
 public class DataInsertException extends Exception {
 

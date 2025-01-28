@@ -1,4 +1,4 @@
-package com.example.reserve_manage_app.Entities;
+package com.example.reserve_manage_app.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

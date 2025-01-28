@@ -25,7 +25,7 @@ public class UpdateReservationRequest {
      * 時間帯
      */
     @NotNull(message = "時間が指定されていません。")
-    private Long timeSlotId;
+    private Long reserveTime;
 
     /**
      * 予約人数
@@ -44,5 +44,5 @@ public class UpdateReservationRequest {
      * 更新者ID
      */
     @NotNull(message = "更新者がありません。")
-    private Long reservedBy;
+    private Long updatedBy;
 }

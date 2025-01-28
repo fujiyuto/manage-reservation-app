@@ -3,11 +3,9 @@ package com.example.reserve_manage_app.dto.responses;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.example.constants.enums.reservation.Status;
-import com.example.reserve_manage_app.Entities.ReservationEntity;
 import com.example.reserve_manage_app.dto.query.RestaurantReservationListQueryDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -60,7 +58,7 @@ class RestaurantReservationResponse {
     RestaurantReservationResponse (RestaurantReservationListQueryDto dto) {
         this.reservationId = dto.getReservationId();
         this.userName = dto.getUserName();
-        
+
         // LocalDateとintのhour, minuteからLocalDateTime型を生成
         this.reserveDatetime = LocalDateTime.of(dto.getReserveDate(), LocalTime.of(dto.getHour(), dto.getMinute()));
         this.numberOfPeople = dto.getNumberOfPeople();

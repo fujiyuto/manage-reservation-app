@@ -1,10 +1,14 @@
 package com.example.reserve_manage_app.dto.responses;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Data;
 
 @Data
 public class ApiResponse {
-    private String message = "";
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String message;
 
     public ApiResponse(String message) {
         this.message = message;

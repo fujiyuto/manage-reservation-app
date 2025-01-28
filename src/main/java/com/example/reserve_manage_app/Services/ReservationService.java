@@ -1,4 +1,4 @@
-package com.example.reserve_manage_app.Services;
+package com.example.reserve_manage_app.services;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.reserve_manage_app.Exceptions.DataInsertException;
-import com.example.reserve_manage_app.Exceptions.DataUpdateException;
 import com.example.reserve_manage_app.dto.query.ReservationQueryDto;
 import com.example.reserve_manage_app.dto.query.RestaurantReservationListQueryDto;
 import com.example.reserve_manage_app.dto.query.UserReservationListQueryDto;
@@ -19,6 +17,8 @@ import com.example.reserve_manage_app.dto.responses.ApiResponse;
 import com.example.reserve_manage_app.dto.responses.GetRestaurantReservationResponse;
 import com.example.reserve_manage_app.dto.responses.GetUserReservationResponse;
 import com.example.reserve_manage_app.dto.responses.UpdateReservationResponse;
+import com.example.reserve_manage_app.exceptions.DataInsertException;
+import com.example.reserve_manage_app.exceptions.DataUpdateException;
 import com.example.reserve_manage_app.mapper.ReservationMapper;
 
 @Service
