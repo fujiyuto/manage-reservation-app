@@ -3,6 +3,7 @@ package com.example.reserve_manage_app.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.reserve_manage_app.dto.query.ReservationQueryDto;
 import com.example.reserve_manage_app.dto.query.RestaurantReservationListQueryDto;
@@ -46,12 +47,12 @@ public interface ReservationMapper {
      * @param  UpdateReservationRequest request
      * @return int
      */
-    boolean updateReservation(Long reservationId, UpdateReservationRequest request);
+    boolean updateReservation(@Param("reservationId") Long reservationId, @Param("request") UpdateReservationRequest request);
 
     /**
      * 予約データのステータスを更新する
      * @param  UpdateReservationStatusRequest request
      * @return int
      */
-    boolean updateReservationStatus(Long reservationId, UpdateReservationStatusRequest request);
+    boolean updateReservationStatus(@Param("reservationId") Long reservationId, @Param("request") UpdateReservationStatusRequest request);
 }
