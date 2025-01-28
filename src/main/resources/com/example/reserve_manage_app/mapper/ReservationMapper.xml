@@ -91,10 +91,10 @@
     <!-- 予約データIDを使用し、予約データを取得する -->
     <select id="getReservationData" parameterType="long" resultMap="selectReservation">
         SELECT 
-            u.user_name as userName, 
-            res.restaurant_name as restaurantName,
-            r.reserve_date as reserveDate, 
-            r.num_of_people as numberOfPeople, 
+            u.user_name, 
+            res.restaurant_name,
+            r.reserve_date, 
+            r.num_of_people, 
             r.status, 
             r.notes, 
             ts.hour, 
@@ -114,7 +114,7 @@
         ON 
             r.restaurant_id = res.id
         WHERE 
-            r.id = #{reservationId}
+            r.id = #{reservationId};
     </select>
 
     <!-- 予約データを作成する -->
@@ -135,20 +135,20 @@
             #{timeSlotId},
             #{numberOfPeople},
             #{notes}
-        )
+        );
     </insert>
 
     <!-- 予約データを更新する -->
     <update id="updateReservation" parameterType="UpdateReservationRequest">
         UPDATE reservations
         SET
+            updated_by = #{request.updatedBy},
             reserve_date = #{request.reserveDate},
-            time_slot_id = #{request.timeSlotId},
+            time_slot_id = #{request.reserveTime},
             num_of_people = #{request.numberOfPeople},
-            notes = #{request.notes},
-            reserved_by = #{request.reservedBy}
+            notes = #{request.notes}
         WHERE
-            id = #{reservationId}
+            id = #{reservationId};
     </update>
 
     <!-- 予約状況を更新する -->
@@ -157,6 +157,6 @@
         SET
             status = #{request.status}
         WHERE
-            id = #{reservationId}
+            id = #{reservationId};
     </update>
 </mapper>
